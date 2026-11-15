@@ -1,0 +1,57 @@
+{
+  "_comment": "TEMPLATE ONLY - files starting with '_' are never loaded. Copy to e.g. hgst_ssd.json and edit. The pages and fields below are made-up placeholders showing the syntax, not a real drive's layout.",
+
+  "match": {
+    "vendor": "^HGST",
+    "product": "H4STR|H1STR",
+    "revision": ""
+  },
+
+  "log_pages": {
+    "0x30": {
+      "name": "Example: parameter-format vendor log",
+      "params": {
+        "0x0001": { "name": "Example simple counter", "unit": "events" },
+        "0x0002": { "name": "Example ASCII parameter", "format": "ascii" },
+        "0x0003": {
+          "name": "Example structured parameter",
+          "fields": [
+            { "name": "Status flag",        "byte": 0, "bit": 7, "bits": 1 },
+            { "name": "Mode",               "byte": 0, "bit": 3, "bits": 4, "enum": { "0": "idle", "1": "active" } },
+            { "name": "Host writes",        "byte": 4, "bits": 64, "unit": "blocks" },
+            { "name": "Signed temperature", "byte": 12, "bits": 8, "format": "signed", "unit": "C" },
+            { "name": "Firmware tag",       "byte": 16, "bits": 64, "format": "ascii" }
+          ]
+        },
+        "*": { "name": "Any other parameter", "format": "hex" }
+      }
+    },
+    "0x31/0x01": {
+      "name": "Example: flat (non-parameter) vendor log, offsets from byte 0 of the page",
+      "layout": "flat",
+      "fields": [
+        { "name": "Structure revision", "byte": 4, "bits": 16, "format": "hex" },
+        { "name": "NAND bytes written", "byte": 8, "bits": 64 }
+      ]
+    }
+  },
+
+  "mode_pages": {
+    "0x00": {
+      "name": "Example: vendor unit attention page",
+      "fields": [
+        { "name": "EXAMPLE_ENABLE", "byte": 2, "bit": 4, "bits": 1 },
+        { "name": "EXAMPLE_LIMIT",  "byte": 4, "bits": 16 }
+      ]
+    }
+  },
+
+  "vpd_pages": {
+    "0xC0": {
+      "name": "Example: vendor firmware information",
+      "fields": [
+        { "name": "Firmware build", "byte": 4, "bits": 128, "format": "ascii" }
+      ]
+    }
+  }
+}

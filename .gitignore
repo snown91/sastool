@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+livetest_*.txt
+*.bin
